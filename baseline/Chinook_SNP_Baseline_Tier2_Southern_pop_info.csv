@@ -1,0 +1,26 @@
+collection,repunit,grpvec
+Cedar Cr H,N/Mid_OR_Cst,1
+Coquille R,N/Mid_OR_Cst,1
+Drift Cr,N/Mid_OR_Cst,1
+Nehalem R,N/Mid_OR_Cst,1
+Siletz R,N/Mid_OR_Cst,1
+Siuslaw R,N/Mid_OR_Cst,1
+Umpqua R,N/Mid_OR_Cst,1
+Applegate Cr,Rogue_R,2
+Cole Rivers H,Rogue_R,2
+Chetco R,N_CA/S_OR_Cst,3
+Smith R,N_CA/S_OR_Cst,3
+Iron Gate H,Klamath_R,4
+Trinity R H,Klamath_R,4
+Eel R,CA_Cst,5
+Butte Cr sp,Cent_Valley_sp,6
+Deer Cr sp,Cent_Valley_sp,6
+Mill Cr sp,Cent_Valley_sp,6
+Up Sacramento R sp,Cent_Valley_sp,6
+Livingston Stone NFH,Cent_Valley_wi,7
+Warm Springs H,Cent_Valley_fa,8
+Butte Cr fa,Cent_Valley_fa,8
+Coleman NFH,Cent_Valley_fa,8
+Deer Cr fa,Cent_Valley_fa,8
+Mill Cr fa,Cent_Valley_fa,8
+Mokelumne R,Cent_Valley_fa,8

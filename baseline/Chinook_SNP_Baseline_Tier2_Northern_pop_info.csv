@@ -1,0 +1,311 @@
+collection,repunit,grpvec
+Blanchard R,Alsek,1
+Goat Cr,Alsek,1
+Klukshu R,Alsek,1
+Kudwat Cr,Alsek,1
+Takhanne R,Alsek,1
+Kelsall R,Chilkat_R,2
+Tahini R,Chilkat_R,2
+Gulkana R - Sourdough,Copper_R,3
+Mendeltna Cr,Copper_R,3
+Otter Cr,Copper_R,3
+Sinona Cr,Copper_R,3
+Chemainus R,E_Vancouver_Is,4
+Cowichan R,E_Vancouver_Is,4
+Little Qualicum R,E_Vancouver_Is,4
+Nanaimo R fa,E_Vancouver_Is,4
+Nanaimo R su,E_Vancouver_Is,4
+Nimpkish R,E_Vancouver_Is,4
+Oyster R,E_Vancouver_Is,4
+Puntledge R,E_Vancouver_Is,4
+Quinsam R,E_Vancouver_Is,4
+Salmon R (Johnstone Strait),E_Vancouver_Is,4
+Woss R,E_Vancouver_Is,4
+Yakoun R,Haida_Gwaii,5
+Dungeness R,Juan_de_Fuca,6
+Elwha fa,Juan_de_Fuca,6
+Elwha H,Juan_de_Fuca,6
+Avacha,Kamchatka,7
+Bistraya R,Kamchatka,7
+Bolshaya R,Kamchatka,7
+Icha R,Kamchatka,7
+Kamchatka R,Kamchatka,7
+Karymay R,Kamchatka,7
+Kikchik R,Kamchatka,7
+Kol R,Kamchatka,7
+Pahacha R,Kamchatka,7
+Palana R,Kamchatka,7
+Pymta R,Kamchatka,7
+Tigil R,Kamchatka,7
+Vorovskaya R,Kamchatka,7
+King Salmon R (Alaska),King_Salmon_R,8
+Big Silver Cr,Low_Fraser_R,9
+Birkenhead R,Low_Fraser_R,9
+Blue Cr,Low_Fraser_R,9
+Chilliwack R fa,Low_Fraser_R,9
+Harrison R,Low_Fraser_R,9
+Pitt R - Upper,Low_Fraser_R,9
+Stave R,Low_Fraser_R,9
+Ecstall R,Low_Skeena_R,10
+Exchamsiks R,Low_Skeena_R,10
+Exstew R,Low_Skeena_R,10
+Gitnadoix R,Low_Skeena_R,10
+Kasiks R,Low_Skeena_R,10
+Kitsumkalum R - Lower,Low_Skeena_R,10
+Zymagotitz R,Low_Skeena_R,10
+Coldwater R,Low_Thompson_R,11
+Coldwater R - Upper,Low_Thompson_R,11
+Deadman R,Low_Thompson_R,11
+Louis Cr,Low_Thompson_R,11
+Nicola R,Low_Thompson_R,11
+Spius Cr,Low_Thompson_R,11
+Spius Cr - Upper,Low_Thompson_R,11
+Bridge R,Mid_Fraser_R,12
+Cariboo R,Mid_Fraser_R,12
+Chilcotin R - Lower,Mid_Fraser_R,12
+Chilcotin R - Upper,Mid_Fraser_R,12
+Chilko R,Mid_Fraser_R,12
+Cottonwood R - Lower,Mid_Fraser_R,12
+Elkin Cr,Mid_Fraser_R,12
+Endako R,Mid_Fraser_R,12
+Kuzkwa R,Mid_Fraser_R,12
+Nechako R,Mid_Fraser_R,12
+Portage Cr (Fraser),Mid_Fraser_R,12
+Quesnel R,Mid_Fraser_R,12
+Stuart R,Mid_Fraser_R,12
+Taseko R,Mid_Fraser_R,12
+West Road Blackwater R,Mid_Fraser_R,12
+Big Salmon,Mid_Up_Yukon,13
+Big Salmon R,Mid_Up_Yukon,13
+Blind Cr,Mid_Up_Yukon,13
+Chandalar R,Mid_Up_Yukon,13
+Chandindu R,Mid_Up_Yukon,13
+Chena R,Mid_Up_Yukon,13
+Henshaw Cr,Mid_Up_Yukon,13
+Kantishna R,Mid_Up_Yukon,13
+Klondike R,Mid_Up_Yukon,13
+Little Salmon R,Mid_Up_Yukon,13
+Mayo R,Mid_Up_Yukon,13
+Pelly,Mid_Up_Yukon,13
+Salcha R,Mid_Up_Yukon,13
+Sheenjek R,Mid_Up_Yukon,13
+Takhini,Mid_Up_Yukon,13
+Whitehorse,Mid_Up_Yukon,13
+Atnarko R,N/Cent_BC_Cst,14
+Atnarko R - Upper,N/Cent_BC_Cst,14
+Dean R - Lower,N/Cent_BC_Cst,14
+Docee R,N/Cent_BC_Cst,14
+Hirsch Cr,N/Cent_BC_Cst,14
+Kateen R,N/Cent_BC_Cst,14
+Kildala R,N/Cent_BC_Cst,14
+Kitimat,N/Cent_BC_Cst,14
+Kitlope R,N/Cent_BC_Cst,14
+Nusatsum R,N/Cent_BC_Cst,14
+Takia R,N/Cent_BC_Cst,14
+Wannock R,N/Cent_BC_Cst,14
+King Salmon R,N_AK_Peninsula,15
+Milky R (Bear R Tributary),N_AK_Peninsula,15
+Plenty Bear Cr - Meshik,N_AK_Peninsula,15
+Anchor R,N_Gulf_AK,16
+Anchor R Weir,N_Gulf_AK,16
+Ayakulik R Weir,N_Gulf_AK,16
+Benjamin Cr,N_Gulf_AK,16
+Chignik R,N_Gulf_AK,16
+Crescent Cr,N_Gulf_AK,16
+Crooked Cr,N_Gulf_AK,16
+Deception Cr - Willow,N_Gulf_AK,16
+Deshka R,N_Gulf_AK,16
+Funny R,N_Gulf_AK,16
+Juneau Cr,N_Gulf_AK,16
+Karluk R,N_Gulf_AK,16
+Karluk R Weir,N_Gulf_AK,16
+Kasilof R - Mainstem lower,N_Gulf_AK,16
+Kasilof R - Mainstem middle,N_Gulf_AK,16
+Kasilof R - Middle,N_Gulf_AK,16
+Kenai R - Mainstem lower,N_Gulf_AK,16
+Kenai R - Mainstem middle,N_Gulf_AK,16
+Killey R,N_Gulf_AK,16
+Ninilchik R,N_Gulf_AK,16
+Ninilchik R - Ft. Richardson,N_Gulf_AK,16
+Prairie Cr,N_Gulf_AK,16
+Slikok Cr,N_Gulf_AK,16
+Talachulitna R,N_Gulf_AK,16
+Willow Cr,N_Gulf_AK,16
+Kendall Cr H NF,N_Puget_Sound,17
+Marblemount H sp,N_Puget_Sound,17
+NF Stillaguamish R,N_Puget_Sound,17
+Nooksack R,N_Puget_Sound,17
+SF Stillaguamish R,N_Puget_Sound,17
+Skagit R,N_Puget_Sound,17
+Skykomish R,N_Puget_Sound,17
+Snohomish R,N_Puget_Sound,17
+Stillaguamish R,N_Puget_Sound,17
+Suiattle R,N_Puget_Sound,17
+U Sauk R,N_Puget_Sound,17
+White Chuck R,N_Puget_Sound,17
+Blue R,N_Thompson_R,18
+Clearwater R (N Thompson),N_Thompson_R,18
+Finn Cr,N_Thompson_R,18
+Lemieux Cr,N_Thompson_R,18
+North Thompson R,N_Thompson_R,18
+Raft R,N_Thompson_R,18
+Cranberry R,Nass_R,19
+Damdochax Cr,Nass_R,19
+Kiteen R,Nass_R,19
+Kwinageese R,Nass_R,19
+Meziadin R,Nass_R,19
+Oweegee Cr,Nass_R,19
+Snowbank Cr,Nass_R,19
+Tseax Slough,Nass_R,19
+Little Port Walter - King Salmon R,NSE_AK,20
+Pullen Cr H - DIPAC,NSE_AK,20
+Ashlu Cr,S_BC_Cst,21
+Ashlulm Cr,S_BC_Cst,21
+Devereux Cr,S_BC_Cst,21
+Homathko R,S_BC_Cst,21
+Klinaklini R,S_BC_Cst,21
+Mamquam R,S_BC_Cst,21
+Phillips R,S_BC_Cst,21
+Porteau Cove,S_BC_Cst,21
+Shovelnose Cr,S_BC_Cst,21
+Southgate R,S_BC_Cst,21
+Squamish,S_BC_Cst,21
+Bear Cr,S_Puget_Sound,22
+Cedar R,S_Puget_Sound,22
+Green R,S_Puget_Sound,22
+Hamma Hamma R,S_Puget_Sound,22
+Issaquah H,S_Puget_Sound,22
+NF Skokomish R,S_Puget_Sound,22
+Nisqually R,S_Puget_Sound,22
+Puyallup R,S_Puget_Sound,22
+SF Skokomish R,S_Puget_Sound,22
+Snoqualmie R,S_Puget_Sound,22
+Soos Cr,S_Puget_Sound,22
+Soos Cr Green R,S_Puget_Sound,22
+Soos Cr H,S_Puget_Sound,22
+White H,S_Puget_Sound,22
+White R,S_Puget_Sound,22
+Adams R,S_Thompson_R,23
+Bessette Cr,S_Thompson_R,23
+Eagle R (S Thompson),S_Thompson_R,23
+Little R,S_Thompson_R,23
+Salmon R (S Thompson),S_Thompson_R,23
+Shuswap R - Lower,S_Thompson_R,23
+Shuswap R - Middle,S_Thompson_R,23
+Thompson R - Below Kamloops Lake,S_Thompson_R,23
+Situk R,Situk_R,24
+Blossom R,SSE_AK,25
+Butler Cr,SSE_AK,25
+Chickamin - Butler Cr,SSE_AK,25
+Chickamin - Humpy Cr,SSE_AK,25
+Chickamin R,SSE_AK,25
+Clear Cr (Unuk),SSE_AK,25
+Cripple Cr,SSE_AK,25
+Genes Lake,SSE_AK,25
+Gene's Lake,SSE_AK,25
+Harding R,SSE_AK,25
+Kerr Cr,SSE_AK,25
+Keta R,SSE_AK,25
+King Cr (Chickamin),SSE_AK,25
+Unuk - Clear Cr,SSE_AK,25
+Whitman Lake H,SSE_AK,25
+Alpine Cr (Stikine),Stikine_R,26
+Christina Cr,Stikine_R,26
+Craig R,Stikine_R,26
+Johnny Tashoots Cr,Stikine_R,26
+Little Tahltan R,Stikine_R,26
+Shakes Cr,Stikine_R,26
+Stikine - Andrew Cr,Stikine_R,26
+Tahltan R,Stikine_R,26
+Tuya R,Stikine_R,26
+Verrett R,Stikine_R,26
+Dudidontu R,Taku_R,27
+Hackett R,Taku_R,27
+Kowatua Cr,Taku_R,27
+Little Tatsamenie R,Taku_R,27
+Nahlin R,Taku_R,27
+Nakina R,Taku_R,27
+Tseta Cr,Taku_R,27
+Yeth R,Taku_R,27
+Bowron R,Up_Fraser_R,28
+Dome Cr,Up_Fraser_R,28
+Goat R,Up_Fraser_R,28
+Holmes R,Up_Fraser_R,28
+Indianpoint Cr,Up_Fraser_R,28
+Kenneth Cr,Up_Fraser_R,28
+Mcgregor R,Up_Fraser_R,28
+Morkill R,Up_Fraser_R,28
+Salmon R,Up_Fraser_R,28
+Slim Cr,Up_Fraser_R,28
+Swift Cr,Up_Fraser_R,28
+Tete Jaune,Up_Fraser_R,28
+Torpy R,Up_Fraser_R,28
+Walker Cr,Up_Fraser_R,28
+Willow R,Up_Fraser_R,28
+Babine R - Sections 1 To 3,Up_Skeena_R,29
+Bear R,Up_Skeena_R,29
+Bulkley R - Upper,Up_Skeena_R,29
+Fiddler Cr,Up_Skeena_R,29
+Kispiox R,Up_Skeena_R,29
+Kitseguecla R,Up_Skeena_R,29
+Kitwanga R,Up_Skeena_R,29
+Kluayaz Cr,Up_Skeena_R,29
+Kuldo Cr,Up_Skeena_R,29
+Morice R,Up_Skeena_R,29
+Otsi Cr,Up_Skeena_R,29
+Sicintine R,Up_Skeena_R,29
+Squingula R,Up_Skeena_R,29
+Suskwa R,Up_Skeena_R,29
+Sustut R,Up_Skeena_R,29
+Sweetin R,Up_Skeena_R,29
+Thomas Cr,Up_Skeena_R,29
+Anvik R,W_AK_Cst,30
+Arolik R,W_AK_Cst,30
+Big Cr (W AK Cst),W_AK_Cst,30
+Cheeneetnuk R,W_AK_Cst,30
+Gagaryah R,W_AK_Cst,30
+George R Weir,W_AK_Cst,30
+Gisasa R,W_AK_Cst,30
+Golsovia R,W_AK_Cst,30
+Goodnews R - North Fork,W_AK_Cst,30
+Kanektok R,W_AK_Cst,30
+Kisaralik R,W_AK_Cst,30
+Kogrukluk R,W_AK_Cst,30
+Kwethluk R,W_AK_Cst,30
+Mulchatna R,W_AK_Cst,30
+Mulchatna R - Upper Nushagak R,W_AK_Cst,30
+Pitka Fork,W_AK_Cst,30
+Stony R,W_AK_Cst,30
+Stuyahok R,W_AK_Cst,30
+Takotna R,W_AK_Cst,30
+Tatlawiksuk R,W_AK_Cst,30
+Togiak R,W_AK_Cst,30
+Tuluksak R,W_AK_Cst,30
+Unalakleet R,W_AK_Cst,30
+Bedwell R,W_Vancouver_Is,31
+Burman R,W_Vancouver_Is,31
+Colonial Cr,W_Vancouver_Is,31
+Conuma R,W_Vancouver_Is,31
+Cypre R,W_Vancouver_Is,31
+Gold R,W_Vancouver_Is,31
+Kaouk R,W_Vancouver_Is,31
+Kennedy R - Lower,W_Vancouver_Is,31
+Leiner R,W_Vancouver_Is,31
+Marble R,W_Vancouver_Is,31
+Megin R,W_Vancouver_Is,31
+Moyeha R,W_Vancouver_Is,31
+Nahmint R,W_Vancouver_Is,31
+Nitinat R,W_Vancouver_Is,31
+Robertson Cr,W_Vancouver_Is,31
+Stamp R - Above fas,W_Vancouver_Is,31
+Tahsis R,W_Vancouver_Is,31
+Tahsish R,W_Vancouver_Is,31
+Thornton Cr,W_Vancouver_Is,31
+Tlupana R,W_Vancouver_Is,31
+Toquart R,W_Vancouver_Is,31
+Zeballos R,W_Vancouver_Is,31
+Forks Cr H,WA_Cst,32
+Hoh R,WA_Cst,32
+Queets R,WA_Cst,32
+Quinault R,WA_Cst,32
+Sol Duc R,WA_Cst,32

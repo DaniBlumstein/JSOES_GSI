@@ -1,0 +1,105 @@
+---
+title: "3_2_2_MsGSI"
+author: "Dani Blumstein"
+date: "2025-03-03"
+output: html_document
+---
+
+```{r}
+# install.packages("devtools")
+
+devtools::install_github("boppingshoe/Ms.GSI", build_vignettes = TRUE)
+
+#Load libraries
+
+library(devtools)
+library(Ms.GSI)
+library(dplyr)
+
+# Set default folder to where you downloaded the baseline and pop_info files
+#with a project this should no longer be necessisary 
+#setwd("YOUR_PATH")
+
+# You can do a "find and replace", to replace "YOUR_PATH" with the path to your default folder to quickly format this code. 
+
+# Import mixture, Tier 1 baseline, Tier 2 baseline, Tier 1 pop info, Tier 2 pop info; 
+# Locus name suffixes must be like the example files ("" and ".1"); Beware of loci with names like "Ots_S7-1".  MsGSI turns the "-" into a "." 
+# which causes a problem; It may be better to just change all "-" to "_"
+# Code to import baseline files for GAPS RGs
+
+Coastwide_MsGSI_Input <- read.csv("baseline/Chinook_SNP_Baseline_Tier1_Coastwide_Genotypes.csv")
+colnames(Coastwide_MsGSI_Input) <- gsub("\\-", "_", colnames(Coastwide_MsGSI_Input))
+Coastwide_MsGSI_Input[] <- lapply(Coastwide_MsGSI_Input, as.character)
+Coastwide_pop_info <- read.csv("baseline/Chinook_SNP_Baseline_Tier1_Coastwide_pop_info.csv")
+
+Northern_MsGSI_Input <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Northern_Genotypes.csv")
+colnames(Northern_MsGSI_Input) <- gsub("\\-", "_", colnames(Northern_MsGSI_Input))
+Northern_MsGSI_Input[] <- lapply(Northern_MsGSI_Input, as.character)
+Northern_pop_info <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Northern_pop_info.csv")
+
+Columbia_MsGSI_Input <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Columbia_Genotypes.csv")
+colnames(Columbia_MsGSI_Input) <- gsub("\\-", "_", colnames(Columbia_MsGSI_Input))
+Columbia_MsGSI_Input[] <- lapply(Columbia_MsGSI_Input, as.character)
+Columbia_pop_info <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Columbia_pop_info.csv")
+
+Southern_MsGSI_Input <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Southern_Genotypes.csv")
+colnames(Southern_MsGSI_Input) <- gsub("\\-", "_", colnames(Southern_MsGSI_Input))
+Southern_MsGSI_Input[] <- lapply(Southern_MsGSI_Input, as.character)
+Southern_pop_info <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Southern_pop_info.csv")
+
+# Run the file prep function; sub_groups can be the RGs in the Tier 2 baseline, but with the number designations in the tier 1 pop_info; 
+# sub_groups must be consecutive numbers begining with "1"
+# Replace "mixture_genos" with whatever you call your file of mixture genotypes
+ 
+mixture_genos <-read.csv("June24_Mix258_MsGSI_Input.csv")
+colnames(mixture_genos) <- gsub("\\-", "_", colnames(mixture_genos))
+mixture_genos[] <- lapply(mixture_genos, as.character)
+
+msgsi_dat_northern <- prep_msgsi_data(mixture_data = mixture_genos, baseline1_data = Coastwide_MsGSI_Input, baseline2_data = Northern_MsGSI_Input, pop1_info = Coastwide_pop_info, pop2_info = Northern_pop_info, sub_group = 1:32)
+
+msgsi_dat_columbia <- prep_msgsi_data(mixture_data = mixture_genos, baseline1_data = Coastwide_MsGSI_Input, baseline2_data = Columbia_MsGSI_Input, pop1_info = Coastwide_pop_info, pop2_info = Columbia_pop_info, sub_group = 33:41)
+
+msgsi_dat_southern <- prep_msgsi_data(mixture_data = mixture_genos, baseline1_data = Coastwide_MsGSI_Input, baseline2_data = Southern_MsGSI_Input, pop1_info = Coastwide_pop_info, pop2_info = Southern_pop_info, sub_group = 42:49)
+
+# You can ignore warning messages about group names not being consistent between baselines if your Tier 2 baseline has RGs that are not in Tier 1
+# If you receive the error that dplyr can't find the column "locus" it's probably because of an incompatibility between your files' locus names
+
+# View summary of created list and/or any part of the list (you can replace "x" with other names)
+
+summary(msgsi_dat_northern)
+summary(msgsi_dat_columbia)
+summary(msgsi_dat_southern)
+
+View(msgsi_dat_northern$x)
+
+# Run the GSI
+
+msgsi_out_northern <- msgsi_mdl(msgsi_dat_northern, nreps = 25000, nburn = 15000, thin = 5, nchains = 5)
+msgsi_out_columbia <- msgsi_mdl(msgsi_dat_columbia, nreps = 25000, nburn = 15000, thin = 5, nchains = 5)
+msgsi_out_southern <- msgsi_mdl(msgsi_dat_southern, nreps = 25000, nburn = 15000, thin = 5, nchains = 5)
+
+# View summary of created list and/or any part of the list
+# summ = mixture estimates; idens = individual assigments (not useful in this format)
+
+summary(msgsi_out_northern)
+View(msgsi_out_northern$summ_comb)
+
+# Summarize individual assignments
+
+Ind_Assign_Est_Northern <- indiv_assign(mdl_out = msgsi_out_northern, mdl_dat = msgsi_dat_northern)
+Ind_Assign_Est_Columbia <- indiv_assign(mdl_out = msgsi_out_columbia, mdl_dat = msgsi_dat_columbia)
+Ind_Assign_Est_Southern <- indiv_assign(mdl_out = msgsi_out_southern, mdl_dat = msgsi_dat_southern)
+
+# Write tables
+ 
+write.csv(Ind_Assign_Est_Northern, file = "Indiv_Assignments_North.csv", row.names = FALSE)
+write.csv(Ind_Assign_Est_Columbia, file = "Indiv_Assignments_Columbia.csv", row.names = FALSE)
+write.csv(Ind_Assign_Est_Southern, file = "Indiv_Assignments_South.csv", row.names = FALSE)
+
+# Make trace plots
+
+tr_plot(obj = msgsi_out_northern$trace_comb)
+tr_plot(obj = msgsi_out_columbia$trace_comb)
+tr_plot(obj = msgsi_out_southern$trace_comb)
+```
+

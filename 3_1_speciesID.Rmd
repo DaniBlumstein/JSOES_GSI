@@ -1,0 +1,105 @@
+---
+title: "3_1_speciesID"
+author: "Dani Blumstein"
+date: "2025-03-03"
+output: html_document
+---
+
+```{r}
+## Load Libraries
+library(rubias)
+library(tidyverse)
+library(readxl)
+
+## Set Working Directory
+
+##Import Baseline and Mixture files
+mixture <- read_excel("JSOES_2024_May_Genotypes.xlsx", sheet = "SpID176")
+baseline <- read.csv("SpID_Baseline_176loci_RubiasInput.csv")
+
+# Convert all columns to characters
+mixture[] <- lapply(mixture, as.character)
+baseline[] <- lapply(baseline, as.character)
+
+mixture<- as.data.frame(mixture)
+mixture$repunit <- NA
+colnames(mixture) <- gsub("\\-", ".", colnames(mixture))
+colnames(mixture) <- gsub("\\'", ".", colnames(mixture))
+
+identical(colnames(mixture),colnames(baseline))
+setdiff(colnames(mixture),colnames(baseline))
+
+## Perform Mixture Estimate (fill in ?s)
+mix_est <- infer_mixture(reference = baseline, mixture = mixture, gen_start_col = 5)
+
+## For mixing proportions
+rep_mix_est <- mix_est$mixing_proportions %>% 
+  group_by(mixture_collection, repunit) %>%
+  summarise(repprop = sum(pi))
+
+## For individuals posteriors
+rep_indiv_est <- mix_est$indiv_posteriors %>%
+  group_by(mixture_collection, indiv, repunit) %>%
+  summarise(rep_pofz = sum(PofZ))
+
+## Data frame of top 2
+Top2 <- rep_indiv_est %>% top_n(2, rep_pofz)
+
+## Data frame of top 1
+Top1 <- rep_indiv_est %>% top_n(1, rep_pofz)
+
+## Write table
+write.csv(Top2, file = "Top2.csv")
+write.csv(Top1, file = "Top1.csv")
+
+## To obtain z-scores for top pop for each individual
+map_rows <- mix_est$indiv_posteriors %>% group_by(indiv) %>% top_n(1, PofZ) %>% ungroup()
+
+# Convert the list to a data frame
+map_rows_df <- as.data.frame(map_rows)
+
+# Save the data frame to a CSV file (have to exclude the column that is still a list)
+write.csv(subset(map_rows_df, select = c("mixture_collection", "indiv", "repunit", "collection", "PofZ", "log_likelihood", "z_score", "n_non_miss_loci")), 
+          file = 'z-scores.csv', row.names = FALSE)
+
+unique(rep_mix_est$repunit)
+
+
+#not sure what "#" in "top#" and "slice" should be changed to # of RGs means in this situation
+
+## Find the mix props; "#" in "top#" and "slice" should be changed to # of RGs; 
+# taking input
+topnum = readline(prompt = "what is number for top#: ");
+topnum = as.numeric(topnum)
+print(topnum)
+
+#example: collection would be "JSOES_May2024"
+collection = readline(prompt = "what is the Collection Name in mixture input file: ");
+collection = as.character(collection)
+print(collection)
+
+top <- rep_mix_est %>%
+  filter(mixture_collection == collection) %>%
+  arrange(desc(repprop)) %>%
+  slice(1:topnum)
+
+## Compute # sweeps
+nsweeps <- max(mix_est$mix_prop_traces$sweep)
+
+## Compute posterior density from traces; "top#" should be # of RGs
+trace_subset <- mix_est$mix_prop_traces %>% 
+  filter(mixture_collection == collection, sweep > 200) %>% 
+  group_by(sweep, repunit) %>% 
+  summarise(repprop = sum(pi)) %>% 
+  filter(repunit %in% top$repunit)
+
+## Compute CIs from the traces
+CIs <- trace_subset %>% 
+  group_by (repunit) %>% 
+  summarise(loCI = quantile(repprop, probs = 0.025), hiCI = quantile(repprop, probs = 0.975))
+
+# Write mix ests and CIs to table
+write.table(rep_mix_est, file = "MixEst.txt", sep = "\t")
+write.table(CIs, file = "CIs.txt", sep = "\t")
+```
+
