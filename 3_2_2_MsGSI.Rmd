@@ -17,7 +17,7 @@ library(Ms.GSI)
 library(dplyr)
 
 # Set default folder to where you downloaded the baseline and pop_info files
-#with a project this should no longer be necessisary 
+#with a project this should no longer be necessary
 #setwd("YOUR_PATH")
 
 # You can do a "find and replace", to replace "YOUR_PATH" with the path to your default folder to quickly format this code. 
@@ -51,7 +51,7 @@ Southern_pop_info <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Southern_pop_
 # sub_groups must be consecutive numbers begining with "1"
 # Replace "mixture_genos" with whatever you call your file of mixture genotypes
  
-mixture_genos <-read.csv("June24_Mix258_MsGSI_Input.csv")
+mixture_genos <-read_excel("JSOES_2024_May_Genotypes.xlsx", sheet = "Mix258")
 colnames(mixture_genos) <- gsub("\\-", "_", colnames(mixture_genos))
 mixture_genos[] <- lapply(mixture_genos, as.character)
 
