@@ -166,5 +166,33 @@ snppit_Parentage <- snppit_Parentage %>% rename(SampleID = Kid,
                                                 PBT_Estimate = PopName)
 
 df6 <- right_join(df5,snppit_Parentage,by="SampleID", keep = F)[,  c("SampleID", "SalmonID","Genotypic sex", "species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate", "PBT_Estimate")]
+
+df7 <- as.data.frame(df6, stringsAsFactors = FALSE)
+```
+
+swap out for the JSOES genetic stock group abbreviation
+```{r}
+conversion <- read_excel("~/projects/GSI_from_NWFSC/JSOESChinookGeneticStockGroupsandESUs.xlsx")
+
+# Dataframe of find and replace pairs
+find_replace_pairs <- data.frame(
+  find = conversion$`Ms.GSI pop info abbreviation`,  # Words to find
+  replace = conversion$`JSOES genetic stock group abbreviation`,  # Words to replace with
+  stringsAsFactors = FALSE
+)
+
+
+# Loop through each find-replace pair and apply it to the dataframe
+for (i in 1:nrow(find_replace_pairs)) {
+  # Extract the find and replace values
+  find <- find_replace_pairs$find[i]
+  replace <- find_replace_pairs$replace[i]
+  
+  # Apply the replacement to all columns of the dataframe
+  df7[] <- lapply(df7, function(col) {
+    # Apply gsub for each column and replace the found pattern
+    gsub(find, replace, col)
+  })
+}
 ```
 
