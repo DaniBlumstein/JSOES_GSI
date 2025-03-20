@@ -12,6 +12,7 @@ library(tidyverse)
 library(readxl)
 
 ## Set Working Directory
+#with a project this should no longer be necessary
 
 ##Import Baseline and Mixture files
 mixture <- read_excel("JSOES_2024_May_Genotypes.xlsx", sheet = "SpID176")
@@ -63,10 +64,9 @@ write.csv(subset(map_rows_df, select = c("mixture_collection", "indiv", "repunit
           file = 'z-scores.csv', row.names = FALSE)
 
 unique(rep_mix_est$repunit)
+```
 
-
-#not sure what "#" in "top#" and "slice" should be changed to # of RGs means in this situation
-
+all things below here are not needed. but keeping here just incase
 ## Find the mix props; "#" in "top#" and "slice" should be changed to # of RGs; 
 # taking input
 topnum = readline(prompt = "what is number for top#: ");
@@ -101,5 +101,5 @@ CIs <- trace_subset %>%
 # Write mix ests and CIs to table
 write.table(rep_mix_est, file = "MixEst.txt", sep = "\t")
 write.table(CIs, file = "CIs.txt", sep = "\t")
-```
+
 
