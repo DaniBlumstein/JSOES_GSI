@@ -1,0 +1,170 @@
+---
+title: "4_reporting"
+author: "Dani Blumstein"
+date: "2025-03-12"
+output: html_document
+---
+
+```{r}
+library(readr)
+library(tidyverse)
+
+#import all the files made
+spID <- read.csv("Top1.csv")
+crAssignment <- read.csv("Indiv_Assignments_Columbia.csv")
+northAssignement <- read.csv("Indiv_Assignments_North.csv")
+southAssignement <- read.csv("Indiv_Assignments_South.csv")
+snppit_Parentage <- read_delim("snppit_output_ParentageAssignments.txt", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+genos <- read_excel("JSOES_2024_May_Genotypes.xlsx", sheet = "Ots334")
+```
+
+```{r}
+spID <- spID %>% rename(SampleID = indiv,
+                        species=repunit)
+
+crAssignment <- crAssignment %>% rename(SampleID = ID)
+northAssignement <- northAssignement %>% rename(SampleID = ID)
+southAssignement <- southAssignement %>% rename(SampleID = ID)
+
+genos$`Genotypic sex`
+
+ids <- subset(genos, select=c(SampleID,SalmonID,`Genotypic sex`))
+df1 <- right_join(ids,spID,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species", "rep_pofz")]
+
+df2 <- right_join(df1,crAssignment,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species", "Not.regional" )]
+colnames(df2)[colnames(df2) == "Not.regional"] <- "crAssignment"
+
+df3 <- right_join(df2,northAssignement,by="SampleID", keep = F)[, c("SampleID", "SalmonID","Genotypic sex", "species","crAssignment", "Not.regional" )]
+colnames(df3)[colnames(df3) == "Not.regional"] <- "northAssignement"
+
+df4 <- right_join(df3,southAssignement,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species","crAssignment", "northAssignement","Not.regional" )]
+colnames(df4)[colnames(df4) == "Not.regional"] <- "southAssignement"
+
+# Loop through each row and find which column had the minimum value
+df4$assignemnt <- apply(df4[, c("crAssignment", "northAssignement", "southAssignement")], 1, function(x) names(x)[which.min(x)])
+```
+
+CR first
+```{r}
+#subset to only CR
+CR <- subset(df4, assignemnt == 'crAssignment')
+
+# Initialize an empty dataframe to store the results
+CR_merge <- data.frame()
+
+# Loop through each row of df, dynamically merge based on the last column
+for (i in 1:nrow(CR)) {
+  # Get the value in the last column (which is the name of the dataframe to merge with)
+  df_name <- CR$assignemnt[i]
+  
+  # Dynamically access the dataframe by name
+  other_df <- get(df_name)
+  
+  # Merge the current row's dataframe with the corresponding dynamically selected dataframe on SampleID
+  merged_df <- merge(CR[i, ], other_df, by = "SampleID")
+  
+  CR_merge <- rbind(CR_merge, merged_df)
+}
+
+
+# Loop through each row and find which column had the minimum value
+CR_merge[, c("Genetic_Stock_Best_Estimate",
+             "Probability_Best_Estimate",
+             "Genetic_Stock_2nd_Best_Estimate",
+             "Probability_2nd_Best_Estimate")] <- t(apply(CR_merge[, c("Deschutes_R_fa", "Mid.Up_Columbia_R_sp", "Snake_R_fa","Snake_R_sp","Spring_Cr_Group_tule", "Up_Columbia_R_su.fa", "W_Cascade_fa", "W_Cascade_sp")], 1, function(x) 
+  {
+  sorted <- sort(x, decreasing = TRUE)   # Sort the values
+  c(names(sorted)[1], sorted[1],names(sorted)[2], sorted[2])  # Return two smallest values and their column names
+  }))
+
+
+# Select specific columns by name
+CR_final_df <- CR_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
+```
+
+repeate for northern
+```{r}
+#subset to only northern
+north <- subset(df4, assignemnt == 'northAssignement')
+
+# Initialize an empty dataframe to store the results
+north_merge <- data.frame()
+
+# Loop through each row of df, dynamically merge based on the last column
+for (i in 1:nrow(north)) {
+  # Get the value in the last column (which is the name of the dataframe to merge with)
+  df_name <- north$assignemnt[i]
+  
+  # Dynamically access the dataframe by name
+  other_df <- get(df_name)
+  
+  # Merge the current row's dataframe with the corresponding dynamically selected dataframe on SampleID
+  merged_df <- merge(north[i, ], other_df, by = "SampleID")
+  
+  north_merge <- rbind(north_merge, merged_df)
+}
+
+
+# Loop through each row and find which column had the minimum value
+north_merge[, c("Genetic_Stock_Best_Estimate",
+             "Probability_Best_Estimate",
+             "Genetic_Stock_2nd_Best_Estimate",
+             "Probability_2nd_Best_Estimate")] <- t(apply(north_merge[, c("Alsek","Chilkat_R","Copper_R","E_Vancouver_Is","Haida_Gwaii","Juan_de_Fuca","Kamchatka","King_Salmon_R","Low_Fraser_R","Low_Skeena_R","Low_Thompson_R","Mid_Fraser_R","Mid_Up_Yukon","N.Cent_BC_Cst","N_AK_Peninsula","N_Gulf_AK","N_Puget_Sound","N_Thompson_R","Nass_R","NSE_AK","S_BC_Cst","S_Puget_Sound","S_Thompson_R","Situk_R","SSE_AK","Stikine_R","Taku_R","Up_Fraser_R","Up_Skeena_R","W_AK_Cst","W_Vancouver_Is","WA_Cst")], 1, function(x) 
+  {
+  sorted <- sort(x, decreasing = TRUE)   # Sort the values
+  c(names(sorted)[1], sorted[1],names(sorted)[2], sorted[2])  # Return two smallest values and their column names
+  }))
+
+# Select specific columns by name
+north_final_df <- north_merge[, c("SampleID", "SalmonID", "Genotypic sex","species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
+```
+
+
+repeate for southern
+```{r}
+#subset to only northern
+south <- subset(df4, assignemnt == 'southAssignement')
+
+# Initialize an empty dataframe to store the results
+south_merge <- data.frame()
+
+# Loop through each row of df, dynamically merge based on the last column
+for (i in 1:nrow(south)) {
+  # Get the value in the last column (which is the name of the dataframe to merge with)
+  df_name <- south$assignemnt[i]
+  
+  # Dynamically access the dataframe by name
+  other_df <- get(df_name)
+  
+  # Merge the current row's dataframe with the corresponding dynamically selected dataframe on SampleID
+  merged_df <- merge(south[i, ], other_df, by = "SampleID")
+  
+  south_merge <- rbind(south_merge, merged_df)
+}
+
+
+# Loop through each row and find which column had the minimum value
+south_merge[, c("Genetic_Stock_Best_Estimate",
+             "Probability_Best_Estimate",
+             "Genetic_Stock_2nd_Best_Estimate",
+             "Probability_2nd_Best_Estimate")] <- t(apply(south_merge[, c("N.Mid_OR_Cst","Rogue_R","N_CA.S_OR_Cst","Klamath_R","CA_Cst","Cent_Valley_sp","Cent_Valley_wi","Cent_Valley_fa")], 1, function(x) 
+  {
+  sorted <- sort(x, decreasing = TRUE)   # Sort the values
+  c(names(sorted)[1], sorted[1],names(sorted)[2], sorted[2])  # Return two smallest values and their column names
+  }))
+
+# Select specific columns by name
+south_final_df <- south_merge[, c("SampleID", "SalmonID","Genotypic sex", "species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
+```
+
+
+put it all together and now for pbt
+```{r}
+df5 <- rbind(CR_final_df,north_final_df,south_final_df)
+
+snppit_Parentage <- snppit_Parentage %>% rename(SampleID = Kid,
+                                                PBT_Estimate = PopName)
+
+df6 <- right_join(df5,snppit_Parentage,by="SampleID", keep = F)[,  c("SampleID", "SalmonID","Genotypic sex", "species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate", "PBT_Estimate")]
+```
+
