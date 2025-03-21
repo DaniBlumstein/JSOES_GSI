@@ -20,8 +20,6 @@ library(dplyr)
 #with a project this should no longer be necessary
 #setwd("YOUR_PATH")
 
-# You can do a "find and replace", to replace "YOUR_PATH" with the path to your default folder to quickly format this code. 
-
 # Import mixture, Tier 1 baseline, Tier 2 baseline, Tier 1 pop info, Tier 2 pop info; 
 # Locus name suffixes must be like the example files ("" and ".1"); Beware of loci with names like "Ots_S7-1".  MsGSI turns the "-" into a "." 
 # which causes a problem; It may be better to just change all "-" to "_"
@@ -51,7 +49,7 @@ Southern_pop_info <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Southern_pop_
 # sub_groups must be consecutive numbers begining with "1"
 # Replace "mixture_genos" with whatever you call your file of mixture genotypes
  
-mixture_genos <-read_excel("JSOES_2024_May_Genotypes.xlsx", sheet = "Mix258")
+mixture_genos <-read_excel("input_files/JSOES_2024_May_Genotypes.xlsx", sheet = "Mix258")
 colnames(mixture_genos) <- gsub("\\-", "_", colnames(mixture_genos))
 mixture_genos[] <- lapply(mixture_genos, as.character)
 
@@ -69,8 +67,6 @@ msgsi_dat_southern <- prep_msgsi_data(mixture_data = mixture_genos, baseline1_da
 summary(msgsi_dat_northern)
 summary(msgsi_dat_columbia)
 summary(msgsi_dat_southern)
-
-View(msgsi_dat_northern$x)
 
 # Run the GSI
 
@@ -92,9 +88,9 @@ Ind_Assign_Est_Southern <- indiv_assign(mdl_out = msgsi_out_southern, mdl_dat = 
 
 # Write tables
  
-write.csv(Ind_Assign_Est_Northern, file = "Indiv_Assignments_North.csv", row.names = FALSE)
-write.csv(Ind_Assign_Est_Columbia, file = "Indiv_Assignments_Columbia.csv", row.names = FALSE)
-write.csv(Ind_Assign_Est_Southern, file = "Indiv_Assignments_South.csv", row.names = FALSE)
+write.csv(Ind_Assign_Est_Northern, file = "output/Indiv_Assignments_North.csv", row.names = FALSE)
+write.csv(Ind_Assign_Est_Columbia, file = "output/Indiv_Assignments_Columbia.csv", row.names = FALSE)
+write.csv(Ind_Assign_Est_Southern, file = "output/Indiv_Assignments_South.csv", row.names = FALSE)
 
 # Make trace plots
 

@@ -10,12 +10,12 @@ library(readr)
 library(tidyverse)
 
 #import all the files made
-spID <- read.csv("Top1.csv")
-crAssignment <- read.csv("Indiv_Assignments_Columbia.csv")
-northAssignement <- read.csv("Indiv_Assignments_North.csv")
-southAssignement <- read.csv("Indiv_Assignments_South.csv")
-snppit_Parentage <- read_delim("snppit_output_ParentageAssignments.txt", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
-genos <- read_excel("JSOES_2024_May_Genotypes.xlsx", sheet = "Ots334")
+spID <- read.csv("output/speciesID_Top1.csv")
+crAssignment <- read.csv("output/Indiv_Assignments_Columbia.csv")
+northAssignement <- read.csv("output/Indiv_Assignments_North.csv")
+southAssignement <- read.csv("output/Indiv_Assignments_South.csv")
+snppit_Parentage <- read_delim("output/snppit_output_ParentageAssignments.txt", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+genos <- read_excel("input_files/JSOES_2024_May_Genotypes.xlsx", sheet = "Ots334")
 ```
 
 ```{r}
@@ -25,8 +25,6 @@ spID <- spID %>% rename(SampleID = indiv,
 crAssignment <- crAssignment %>% rename(SampleID = ID)
 northAssignement <- northAssignement %>% rename(SampleID = ID)
 southAssignement <- southAssignement %>% rename(SampleID = ID)
-
-genos$`Genotypic sex`
 
 ids <- subset(genos, select=c(SampleID,SalmonID,`Genotypic sex`))
 df1 <- right_join(ids,spID,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species", "rep_pofz")]
@@ -68,15 +66,19 @@ for (i in 1:nrow(CR)) {
 
 
 # Loop through each row and find which column had the minimum value
+process_row <- function(x) {
+  sorted <- sort(x, decreasing = TRUE)  # Sort
+  return(c(names(sorted)[1], sorted[1], names(sorted)[2], sorted[2]))
+}
+
+result <- apply(CR_merge[, c("Deschutes_R_fa", "Mid.Up_Columbia_R_sp", "Snake_R_fa",
+                             "Snake_R_sp", "Spring_Cr_Group_tule", "Up_Columbia_R_su.fa", 
+                             "W_Cascade_fa", "W_Cascade_sp")], 1, process_row)
+
 CR_merge[, c("Genetic_Stock_Best_Estimate",
              "Probability_Best_Estimate",
              "Genetic_Stock_2nd_Best_Estimate",
-             "Probability_2nd_Best_Estimate")] <- t(apply(CR_merge[, c("Deschutes_R_fa", "Mid.Up_Columbia_R_sp", "Snake_R_fa","Snake_R_sp","Spring_Cr_Group_tule", "Up_Columbia_R_su.fa", "W_Cascade_fa", "W_Cascade_sp")], 1, function(x) 
-  {
-  sorted <- sort(x, decreasing = TRUE)   # Sort the values
-  c(names(sorted)[1], sorted[1],names(sorted)[2], sorted[2])  # Return two smallest values and their column names
-  }))
-
+             "Probability_2nd_Best_Estimate")] <- t(result)
 
 # Select specific columns by name
 CR_final_df <- CR_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
