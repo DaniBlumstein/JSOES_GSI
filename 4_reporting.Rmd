@@ -7,7 +7,9 @@ output: html_document
 
 ```{r}
 library(readr)
+library(readxl)
 library(tidyverse)
+options(scipen = 999)
 
 #import all the files made
 spID <- read.csv("output/speciesID_Top1.csv")
@@ -40,6 +42,7 @@ colnames(df4)[colnames(df4) == "Not.regional"] <- "southAssignement"
 
 # Loop through each row and find which column had the minimum value
 df4$assignemnt <- apply(df4[, c("crAssignment", "northAssignement", "southAssignement")], 1, function(x) names(x)[which.min(x)])
+
 ```
 
 CR first
@@ -50,131 +53,141 @@ CR <- subset(df4, assignemnt == 'crAssignment')
 # Initialize an empty dataframe to store the results
 CR_merge <- data.frame()
 
-# Loop through each row of df, dynamically merge based on the last column
+# Loop through each row of df, dynamically merge based on the last column, the region
 for (i in 1:nrow(CR)) {
   # Get the value in the last column (which is the name of the dataframe to merge with)
   df_name <- CR$assignemnt[i]
   
-  # Dynamically access the dataframe by name
+  # Dynamically access the dataframe by name, an extra step to really make sure you are woking with the right region
   other_df <- get(df_name)
   
   # Merge the current row's dataframe with the corresponding dynamically selected dataframe on SampleID
   merged_df <- merge(CR[i, ], other_df, by = "SampleID")
-  
   CR_merge <- rbind(CR_merge, merged_df)
 }
 
-
 # Loop through each row and find which column had the minimum value
-process_row <- function(x) {
+process_row <- function(x) 
+  {
   sorted <- sort(x, decreasing = TRUE)  # Sort
   return(c(names(sorted)[1], sorted[1], names(sorted)[2], sorted[2]))
-}
+  }
 
-result <- apply(CR_merge[, c("Deschutes_R_fa", "Mid.Up_Columbia_R_sp", "Snake_R_fa",
-                             "Snake_R_sp", "Spring_Cr_Group_tule", "Up_Columbia_R_su.fa", 
-                             "W_Cascade_fa", "W_Cascade_sp")], 1, process_row)
+#grab just the stock columns and sort the probability values high to low and grab the two highest probabilities 
+result <- apply(CR_merge[, c(colnames(crAssignment[, -c(1:2)]))], 1, process_row)
 
 CR_merge[, c("Genetic_Stock_Best_Estimate",
              "Probability_Best_Estimate",
              "Genetic_Stock_2nd_Best_Estimate",
              "Probability_2nd_Best_Estimate")] <- t(result)
 
-# Select specific columns by name
+# Select specific columns by name and give em a name
 CR_final_df <- CR_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
 ```
 
-repeate for northern
+repeat for northern
 ```{r}
-#subset to only northern
+#subset to only north
 north <- subset(df4, assignemnt == 'northAssignement')
 
 # Initialize an empty dataframe to store the results
 north_merge <- data.frame()
 
-# Loop through each row of df, dynamically merge based on the last column
+# Loop through each row of df, dynamically merge based on the last column, the region
 for (i in 1:nrow(north)) {
   # Get the value in the last column (which is the name of the dataframe to merge with)
   df_name <- north$assignemnt[i]
   
-  # Dynamically access the dataframe by name
+  # Dynamically access the dataframe by name, an extra step to really make sure you are woking with the right region
   other_df <- get(df_name)
   
   # Merge the current row's dataframe with the corresponding dynamically selected dataframe on SampleID
   merged_df <- merge(north[i, ], other_df, by = "SampleID")
-  
   north_merge <- rbind(north_merge, merged_df)
 }
 
 
 # Loop through each row and find which column had the minimum value
+process_row <- function(x) 
+  {
+  sorted <- sort(x, decreasing = TRUE)  # Sort
+  return(c(names(sorted)[1], sorted[1], names(sorted)[2], sorted[2]))
+  }
+
+#grab just the stock columns and sort the probability values high to low and grab the two highest probabilities 
+result <- apply(north_merge[, c(colnames(northAssignement[, -c(1:2)]))], 1, process_row)
+
 north_merge[, c("Genetic_Stock_Best_Estimate",
              "Probability_Best_Estimate",
              "Genetic_Stock_2nd_Best_Estimate",
-             "Probability_2nd_Best_Estimate")] <- t(apply(north_merge[, c("Alsek","Chilkat_R","Copper_R","E_Vancouver_Is","Haida_Gwaii","Juan_de_Fuca","Kamchatka","King_Salmon_R","Low_Fraser_R","Low_Skeena_R","Low_Thompson_R","Mid_Fraser_R","Mid_Up_Yukon","N.Cent_BC_Cst","N_AK_Peninsula","N_Gulf_AK","N_Puget_Sound","N_Thompson_R","Nass_R","NSE_AK","S_BC_Cst","S_Puget_Sound","S_Thompson_R","Situk_R","SSE_AK","Stikine_R","Taku_R","Up_Fraser_R","Up_Skeena_R","W_AK_Cst","W_Vancouver_Is","WA_Cst")], 1, function(x) 
-  {
-  sorted <- sort(x, decreasing = TRUE)   # Sort the values
-  c(names(sorted)[1], sorted[1],names(sorted)[2], sorted[2])  # Return two smallest values and their column names
-  }))
+             "Probability_2nd_Best_Estimate")] <- t(result)
 
-# Select specific columns by name
-north_final_df <- north_merge[, c("SampleID", "SalmonID", "Genotypic sex","species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
+# Select specific columns by name and give em a name
+norht_final_df <- north_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
 ```
 
-
-repeate for southern
+repeat for southern
 ```{r}
-#subset to only northern
+#subset to only south
 south <- subset(df4, assignemnt == 'southAssignement')
 
 # Initialize an empty dataframe to store the results
 south_merge <- data.frame()
 
-# Loop through each row of df, dynamically merge based on the last column
+# Loop through each row of df, dynamically merge based on the last column, the region
 for (i in 1:nrow(south)) {
   # Get the value in the last column (which is the name of the dataframe to merge with)
   df_name <- south$assignemnt[i]
   
-  # Dynamically access the dataframe by name
+  # Dynamically access the dataframe by name, an extra step to really make sure you are woking with the right region
   other_df <- get(df_name)
   
   # Merge the current row's dataframe with the corresponding dynamically selected dataframe on SampleID
   merged_df <- merge(south[i, ], other_df, by = "SampleID")
-  
   south_merge <- rbind(south_merge, merged_df)
 }
 
-
 # Loop through each row and find which column had the minimum value
+process_row <- function(x) 
+  {
+  sorted <- sort(x, decreasing = TRUE)  # Sort
+  return(c(names(sorted)[1], sorted[1], names(sorted)[2], sorted[2]))
+  }
+
+#grab just the stock columns and sort the probability values high to low and grab the two highest probabilities 
+result <- apply(south_merge[, c(colnames(southAssignement[, -c(1:2)]))], 1, process_row)
+
 south_merge[, c("Genetic_Stock_Best_Estimate",
              "Probability_Best_Estimate",
              "Genetic_Stock_2nd_Best_Estimate",
-             "Probability_2nd_Best_Estimate")] <- t(apply(south_merge[, c("N.Mid_OR_Cst","Rogue_R","N_CA.S_OR_Cst","Klamath_R","CA_Cst","Cent_Valley_sp","Cent_Valley_wi","Cent_Valley_fa")], 1, function(x) 
-  {
-  sorted <- sort(x, decreasing = TRUE)   # Sort the values
-  c(names(sorted)[1], sorted[1],names(sorted)[2], sorted[2])  # Return two smallest values and their column names
-  }))
+             "Probability_2nd_Best_Estimate")] <- t(result)
 
-# Select specific columns by name
-south_final_df <- south_merge[, c("SampleID", "SalmonID","Genotypic sex", "species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
+# Select specific columns by name and give em a name
+norht_final_df <- south_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
 ```
+
 
 
 put it all together and now for pbt
 ```{r}
 df5 <- rbind(CR_final_df,north_final_df,south_final_df)
 
-snppit_Parentage <- snppit_Parentage %>% rename(SampleID = Kid,
-                                                PBT_Estimate = PopName)
+snppit_Parentage <- snppit_Parentage %>% 
+  rename(SampleID = Kid,PBT_Estimate = PopName, PBT_Hatchery_Probability = P.Pr.Max)
 
-df6 <- right_join(df5,snppit_Parentage,by="SampleID", keep = F)[,  c("SampleID", "SalmonID","Genotypic sex", "species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate", "PBT_Estimate")]
+#filter out matches that are not MaxP.Pr.Relat = C_Se_Se and LOD < 14. keep the scond column though becuase that has the sampleID
+filtered_snppit_Parentage <- snppit_Parentage %>%
+  mutate(across(.cols = -2, ~ ifelse(MaxP.Pr.Relat != "C_Se_Se", NA, .))) %>%
+  mutate(across(.cols = -2, ~ ifelse(LOD < 14, NA, .)))
+
+df6 <- right_join(df5,filtered_snppit_Parentage,by="SampleID", keep = F)[,  c("SampleID", "SalmonID","Genotypic sex", "species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate", "PBT_Estimate","PBT_Hatchery_Probability")]
 
 df7 <- as.data.frame(df6, stringsAsFactors = FALSE)
 ```
 
 swap out for the JSOES genetic stock group abbreviation
 ```{r}
-conversion <- read_excel("~/projects/GSI_from_NWFSC/JSOESChinookGeneticStockGroupsandESUs.xlsx")
+conversion <- read_excel("JSOESChinookGeneticStockGroupsandESUs.xlsx")
 
 # Dataframe of find and replace pairs
 find_replace_pairs <- data.frame(
