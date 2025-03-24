@@ -183,6 +183,8 @@ filtered_snppit_Parentage <- snppit_Parentage %>%
 df6 <- right_join(df5,filtered_snppit_Parentage,by="SampleID", keep = F)[,  c("SampleID", "SalmonID","Genotypic sex", "species", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate", "PBT_Estimate","PBT_Hatchery_Probability")]
 
 df7 <- as.data.frame(df6, stringsAsFactors = FALSE)
+
+write.csv(df7, file = "output/JSOES_Genetic_Stock_Assignments_For_Database_pop_info.csv", row.names = FALSE)
 ```
 
 swap out for the JSOES genetic stock group abbreviation
@@ -209,5 +211,7 @@ for (i in 1:nrow(find_replace_pairs)) {
     gsub(find, replace, col)
   })
 }
+
+write.csv(df7, file = "output/JSOES_Genetic_Stock_Assignments_For_Database_stock_group.csv", row.names = FALSE)
 ```
 
