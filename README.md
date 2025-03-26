@@ -9,7 +9,7 @@ The [main SOP](https://github.com/DaniBlumstein/JSOES_GSI/blob/main/JSOES%20Gene
 ### 3.1.1. [Species ID](https://github.com/DaniBlumstein/JSOES_GSI/blob/main/3_1_speciesID.Rmd) 
 ### 3.2.2. [Baseline file](https://github.com/DaniBlumstein/JSOES_GSI/blob/main/baseline/SpID_Baseline_176loci_RubiasInput.csv) to run [Rubias](https://github.com/eriqande/rubias) for species ID
 ## 3.2.	GSI
-### 3.2.1. [Baseline files](https://github.com/DaniBlumstein/JSOES_GSI/tree/main/baseline) for run [MsGSI](https://github.com/boppingshoe/Ms.GSI). Original baseline files can be found in this [dryaid](https://datadryad.org/dataset/doi:10.5061/dryad.dz08kps5b) and the Chinook Salmon GSI baseline as described in [Van Doornik et al. 2024](https://doi.org/10.1002/nafm.11019.)
+### 3.2.1. [Baseline files](https://github.com/DaniBlumstein/JSOES_GSI/tree/main/baseline) for run [MsGSI](https://github.com/boppingshoe/Ms.GSI). Original baseline files can be found in this [Dryad](https://datadryad.org/dataset/doi:10.5061/dryad.dz08kps5b) and the Chinook Salmon GSI baseline as described in [Van Doornik et al. 2024](https://doi.org/10.1002/nafm.11019.)
 ### 3.2.2. R code to run [Ms.GSI](https://github.com/DaniBlumstein/JSOES_GSI/blob/main/3_2_2_MsGSI.Rmd)
 ## 3.3.	PBT
 ### 3.3.1. Download appropriate files from FishGen.net
