@@ -30,7 +30,7 @@ southAssignement <- southAssignement %>% rename(SampleID = ID)
 ids <- subset(genos, select=c(SampleID,SalmonID,`Genotypic sex`))
 
 
-#below is a series of joins to get 
+#below is a series of joins to end with a single dataframe for broad scale group selection
 df1 <- right_join(ids,spID,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species", "rep_pofz")]
 
 df2 <- right_join(df1,crAssignment,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species", "Not.regional" )]
@@ -44,15 +44,14 @@ colnames(df4)[colnames(df4) == "Not.regional"] <- "southAssignement"
 
 
 
-# Loop through each row and find which column had the minimum value
-df4$assignemnt <- apply(df4[, c("crAssignment", "northAssignement", "southAssignement")], 1, function(x) names(x)[which.min(x)])
-
+# Loop through each row and find which column had the minimum value. This new column "assignment" is the broad scale selection
+df4$assignment <- apply(df4[, c("crAssignment", "northAssignement", "southAssignement")], 1, function(x) names(x)[which.min(x)])
 ```
 
-CR first
+CR first to assign each individual to the right fine scale population within the braod scale assignment 
 ```{r}
 #subset to only CR
-CR <- subset(df4, assignemnt == 'crAssignment')
+CR <- subset(df4, assignment == 'crAssignment')
 
 # Initialize an empty dataframe to store the results
 CR_merge <- data.frame()
@@ -60,7 +59,7 @@ CR_merge <- data.frame()
 # Loop through each row of df, dynamically merge based on the last column, the region
 for (i in 1:nrow(CR)) {
   # Get the value in the last column (which is the name of the dataframe to merge with)
-  df_name <- CR$assignemnt[i]
+  df_name <- CR$assignment[i]
   
   # Dynamically access the dataframe by name, an extra step to really make sure you are working with the right region
   other_df <- get(df_name)
@@ -92,7 +91,7 @@ CR_final_df <- CR_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "
 repeat for northern
 ```{r}
 #subset to only north
-north <- subset(df4, assignemnt == 'northAssignement')
+north <- subset(df4, assignment == 'northAssignement')
 
 # Initialize an empty dataframe to store the results
 north_merge <- data.frame()
@@ -100,7 +99,7 @@ north_merge <- data.frame()
 # Loop through each row of df, dynamically merge based on the last column, the region
 for (i in 1:nrow(north)) {
   # Get the value in the last column (which is the name of the dataframe to merge with)
-  df_name <- north$assignemnt[i]
+  df_name <- north$assignment[i]
   
   # Dynamically access the dataframe by name, an extra step to really make sure you are woking with the right region
   other_df <- get(df_name)
@@ -133,7 +132,7 @@ north_final_df <- north_merge[, c("SampleID", "SalmonID", "species","Genotypic s
 repeat for southern
 ```{r}
 #subset to only south
-south <- subset(df4, assignemnt == 'southAssignement')
+south <- subset(df4, assignment == 'southAssignement')
 
 # Initialize an empty dataframe to store the results
 south_merge <- data.frame()
@@ -141,7 +140,7 @@ south_merge <- data.frame()
 # Loop through each row of df, dynamically merge based on the last column, the region
 for (i in 1:nrow(south)) {
   # Get the value in the last column (which is the name of the dataframe to merge with)
-  df_name <- south$assignemnt[i]
+  df_name <- south$assignment[i]
   
   # Dynamically access the dataframe by name, an extra step to really make sure you are woking with the right region
   other_df <- get(df_name)
