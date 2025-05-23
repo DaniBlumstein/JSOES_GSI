@@ -7,14 +7,15 @@ output: html_document
 
 ```{r}
 # install.packages("devtools")
-
-devtools::install_github("boppingshoe/Ms.GSI", build_vignettes = TRUE)
+library(devtools)
+devtools::install_github("boppingshoe/Ms.GSI")
 
 #Load libraries
 
-library(devtools)
+
 library(Ms.GSI)
 library(dplyr)
+library(readxl)
 
 # Set default folder to where you downloaded the baseline and pop_info files
 #with a project this should no longer be necessary
@@ -49,7 +50,7 @@ Southern_pop_info <- read.csv("baseline/Chinook_SNP_Baseline_Tier2_Southern_pop_
 # sub_groups must be consecutive numbers begining with "1"
 # Replace "mixture_genos" with whatever you call your file of mixture genotypes
  
-mixture_genos <-read_excel("input_files/JSOES_2024_May_Genotypes.xlsx", sheet = "Mix258")
+mixture_genos <-read_excel("input_files/JSOES_2024_May_Genotypes.xlsx", sheet = "Mix258") #this is all that needs to be edited
 colnames(mixture_genos) <- gsub("\\-", "_", colnames(mixture_genos))
 mixture_genos[] <- lapply(mixture_genos, as.character)
 
@@ -82,9 +83,9 @@ View(msgsi_out_northern$summ_comb)
 
 # Summarize individual assignments
 
-Ind_Assign_Est_Northern <- indiv_assign(mdl_out = msgsi_out_northern, mdl_dat = msgsi_dat_northern)
-Ind_Assign_Est_Columbia <- indiv_assign(mdl_out = msgsi_out_columbia, mdl_dat = msgsi_dat_columbia)
-Ind_Assign_Est_Southern <- indiv_assign(mdl_out = msgsi_out_southern, mdl_dat = msgsi_dat_southern)
+Ind_Assign_Est_Northern <- indiv_assign(mdl_out = msgsi_out_northern, mdl_dat = msgsi_dat_northern,show_t2_grps = FALSE)
+Ind_Assign_Est_Columbia <- indiv_assign(mdl_out = msgsi_out_columbia, mdl_dat = msgsi_dat_columbia,show_t2_grps = FALSE )
+Ind_Assign_Est_Southern <- indiv_assign(mdl_out = msgsi_out_southern, mdl_dat = msgsi_dat_southern,show_t2_grps = FALSE )
 
 # Write tables
  

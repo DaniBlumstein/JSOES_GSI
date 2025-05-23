@@ -9,7 +9,6 @@ output: html_document
 library(readr)
 library(readxl)
 library(tidyverse)
-options(scipen = 999)
 
 #import all the files made
 spID <- read.csv("output/speciesID_Top1.csv")
@@ -21,14 +20,17 @@ genos <- read_excel("input_files/JSOES_2024_May_Genotypes.xlsx", sheet = "Ots334
 ```
 
 ```{r}
-spID <- spID %>% rename(SampleID = indiv,
-                        species=repunit)
-
+#rename ID column so it matches the rest of the files. also rename the repunit to species to help keep things logical
+spID <- spID %>% rename(SampleID = indiv,species=repunit)
 crAssignment <- crAssignment %>% rename(SampleID = ID)
 northAssignement <- northAssignement %>% rename(SampleID = ID)
 southAssignement <- southAssignement %>% rename(SampleID = ID)
 
+#subset genos to the columns we need
 ids <- subset(genos, select=c(SampleID,SalmonID,`Genotypic sex`))
+
+
+#below is a series of joins to get 
 df1 <- right_join(ids,spID,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species", "rep_pofz")]
 
 df2 <- right_join(df1,crAssignment,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species", "Not.regional" )]
@@ -39,6 +41,8 @@ colnames(df3)[colnames(df3) == "Not.regional"] <- "northAssignement"
 
 df4 <- right_join(df3,southAssignement,by="SampleID", keep = F)[, c("SampleID", "SalmonID", "Genotypic sex","species","crAssignment", "northAssignement","Not.regional" )]
 colnames(df4)[colnames(df4) == "Not.regional"] <- "southAssignement"
+
+
 
 # Loop through each row and find which column had the minimum value
 df4$assignemnt <- apply(df4[, c("crAssignment", "northAssignement", "southAssignement")], 1, function(x) names(x)[which.min(x)])
@@ -58,7 +62,7 @@ for (i in 1:nrow(CR)) {
   # Get the value in the last column (which is the name of the dataframe to merge with)
   df_name <- CR$assignemnt[i]
   
-  # Dynamically access the dataframe by name, an extra step to really make sure you are woking with the right region
+  # Dynamically access the dataframe by name, an extra step to really make sure you are working with the right region
   other_df <- get(df_name)
   
   # Merge the current row's dataframe with the corresponding dynamically selected dataframe on SampleID
@@ -123,7 +127,7 @@ north_merge[, c("Genetic_Stock_Best_Estimate",
              "Probability_2nd_Best_Estimate")] <- t(result)
 
 # Select specific columns by name and give em a name
-norht_final_df <- north_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
+north_final_df <- north_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
 ```
 
 repeat for southern
@@ -163,7 +167,7 @@ south_merge[, c("Genetic_Stock_Best_Estimate",
              "Probability_2nd_Best_Estimate")] <- t(result)
 
 # Select specific columns by name and give em a name
-norht_final_df <- south_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
+south_final_df <- south_merge[, c("SampleID", "SalmonID", "species","Genotypic sex", "Genetic_Stock_Best_Estimate", "Probability_Best_Estimate", "Genetic_Stock_2nd_Best_Estimate","Probability_2nd_Best_Estimate")]
 ```
 
 
@@ -175,7 +179,7 @@ df5 <- rbind(CR_final_df,north_final_df,south_final_df)
 snppit_Parentage <- snppit_Parentage %>% 
   rename(SampleID = Kid,PBT_Estimate = PopName, PBT_Hatchery_Probability = P.Pr.Max)
 
-#filter out matches that are not MaxP.Pr.Relat = C_Se_Se and LOD < 14. keep the scond column though becuase that has the sampleID
+#filter out matches that are not MaxP.Pr.Relat = C_Se_Se and LOD < 14. keep the second column though because that has the sampleID
 filtered_snppit_Parentage <- snppit_Parentage %>%
   mutate(across(.cols = -2, ~ ifelse(MaxP.Pr.Relat != "C_Se_Se", NA, .))) %>%
   mutate(across(.cols = -2, ~ ifelse(LOD < 14, NA, .)))
