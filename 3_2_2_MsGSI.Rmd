@@ -8,7 +8,7 @@ output: html_document
 ```{r}
 # install.packages("devtools")
 library(devtools)
-devtools::install_github("boppingshoe/Ms.GSI")
+devtools::install("Ms.GSI-master")
 
 #Load libraries
 

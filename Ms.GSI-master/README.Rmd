@@ -1,0 +1,70 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Ms.GSI <a href="https://boppingshoe.github.io/Ms.GSI/"><img src="man/figures/logo.png" align="right" height="139" alt="Ms.GSI website" /></a>
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+*Ms.GSI* is here to help you conducting multistage genetic stock identification. This package includes functions to setup input data, run the multistage model, and make summary statistics and convergence diagnostics. It also includes a function for making trace plots.
+
+## Installation
+
+You can install the development version of *Ms.GSI* from [GitHub](https://github.com/boppingshoe/Ms.GSI) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("boppingshoe/Ms.GSI", build_vignettes = TRUE)
+```
+
+## Example
+
+This example shows the basic workflows for running a multistage model. First thing first, the background: we made up a scenario where we have samples for Chinook salmon bycatch from Bering Sea groundfish fisheries. The mixture sample contains Chinook from all over the North Pacific, but we are interested in contribution from the Yukon River. We will conduct GSI using a broad-scale baseline (`base_templin`) in combination with a regional baseline (`base_yukon`) in a multistage framework.
+
+The fake Chinook data sets are pre-loaded in the *Ms.GSI* package. Here we prepare the input data:
+
+```{r example_prep_data}
+
+library(Ms.GSI)
+
+msgsi_dat <-
+  prep_msgsi_data(mixture_data = mix,
+  baseline1_data = base_templin, baseline2_data = base_yukon,
+  pop1_info = templin_pops211, pop2_info = yukon_pops50, sub_group = 3:5)
+
+
+```
+
+Using the prepared input data, we run the model with four chains of 150 iterations. In reality, you should of course run it with more iterations. We set the first 50 iterations in each chain as the warm-ups (not kept in the final output). Here's the summary for the estimates and convergence diagnostics.
+
+```{r example_run_model}
+
+msgsi_out <- msgsi_mdl(msgsi_dat, nreps = 150, nburn = 50, thin = 1, nchains = 4)
+
+msgsi_out$summ_comb
+
+```
+
+There's a function in the package to make trace plots and inspect mixing of chains.
+
+```{r example_trace_plot}
+
+tr_plot(obj = msgsi_out$trace_comb, pop_info = msgsi_out$comb_groups)
+
+```
+
+Details of the mathematical model of integrated multistage framework and instructions for using *Ms.GSI* package can be found in the "articles" tab of the package website. Or, once you installed *Ms.GSI*, you can call the article using `vignette("msgsi_vignette")`.
+
+
