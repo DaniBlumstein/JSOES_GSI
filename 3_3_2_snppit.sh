@@ -5,4 +5,8 @@
 #SBATCH -e jsoes_pbt.err
 #SBACH -n 20
 
+## how to use during job submission: 
+
+##submit w/ sbatch jsoes_pbt.sh
+
 /nfs5/FW_HMSC/Omalley_Lab/snppit/snppit-Linux -f May2024_PBT_Input.txt
