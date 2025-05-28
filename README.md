@@ -4,6 +4,8 @@ The code and data here are designed to aid in transitioning the GSI work (primar
 
 The [main SOP](https://github.com/DaniBlumstein/JSOES_GSI/blob/main/JSOES%20Genetics%20SOP.docx) and is split into five sections. This github repo contains all the code and files for the analysis (section three) and reporting (section four) and are detailed below with links to the scripts and files needed for each part.
 
+The best way to get started with the R side of things is clone the repo and then open [JSOES.Rproj](https://github.com/DaniBlumstein/JSOES_GSI/blob/main/JSOES.Rproj) locally. This will open a contained porject with all input, baseline, output files, and script files with already working paths. Should be run ready right out the box.
+
 # 3. Analysis
 ## 3.1.	Use Rubias with species ID baseline to check for non-Chinook
 ### 3.1.1. [Species ID](https://github.com/DaniBlumstein/JSOES_GSI/blob/main/3_1_speciesID.Rmd) 
