@@ -16,8 +16,8 @@ The best way to get started with the R side of things is clone the repo and then
 ## 3.3.	PBT
 ### 3.3.1. Download appropriate files from FishGen.net
 ### 3.3.2. Make PBT assignments using [SNPPIT](https://github.com/DaniBlumstein/JSOES_GSI/blob/main/3_3_2_snppit.sh) using default parameters. Note: This is a shell script to be run on an hpc. Detials on this program can be found [here](https://github.com/eriqande/snppit/tree/master) but you should be able to clone the repository into your dir and run it via its pre-compiled binary. 
-(note: there is already a copy in the OMalley hpc folder with full permissions)
-(note 2: the output of this "snppit_output_ParentageAssignments.txt" will need to be transferred locally into the output/YEAR/ folder for the reporting script)
+  note: there is already a copy in the OMalley hpc folder with full permissions<br/>
+  note 2: the output of this "snppit_output_ParentageAssignments.txt" will need to be transferred locally into the output/YEAR/ folder for the reporting script
 
 # 4.	Reporting
 ## 4.1.	Individual GSI & PBT assignments (and P values), genotypic sex for every fish
