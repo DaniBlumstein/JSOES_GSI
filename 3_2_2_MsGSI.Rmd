@@ -89,9 +89,9 @@ Ind_Assign_Est_Southern <- indiv_assign(mdl_out = msgsi_out_southern, mdl_dat = 
 
 # Write tables
  
-write.csv(Ind_Assign_Est_Northern, file = "output/Indiv_Assignments_North.csv", row.names = FALSE)
-write.csv(Ind_Assign_Est_Columbia, file = "output/Indiv_Assignments_Columbia.csv", row.names = FALSE)
-write.csv(Ind_Assign_Est_Southern, file = "output/Indiv_Assignments_South.csv", row.names = FALSE)
+write.csv(Ind_Assign_Est_Northern, file = "output/2024/Indiv_Assignments_North.csv", row.names = FALSE)
+write.csv(Ind_Assign_Est_Columbia, file = "output/2024/Indiv_Assignments_Columbia.csv", row.names = FALSE)
+write.csv(Ind_Assign_Est_Southern, file = "output/2024/Indiv_Assignments_South.csv", row.names = FALSE)
 
 # Make trace plots
 

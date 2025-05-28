@@ -15,7 +15,7 @@ library(readxl)
 #with a project this should no longer be necessary
 
 ##Import Baseline and Mixture files
-mixture <- read_excel("input_files/JSOES_2024_May_Genotypes.xlsx", sheet = "SpID176")
+mixture <- read_excel("input_files/JSOES_2024_May_Genotypes.xlsx", sheet = "SpID176") #this is all that needs to be edited
 baseline <- read.csv("baseline/SpID_Baseline_176loci_RubiasInput.csv")
 
 # Convert all columns to characters
@@ -50,8 +50,8 @@ Top2 <- rep_indiv_est %>% top_n(2, rep_pofz)
 Top1 <- rep_indiv_est %>% top_n(1, rep_pofz)
 
 ## Write table
-write.csv(Top2, file = "output/speciesID_Top2.csv")
-write.csv(Top1, file = "output/speciesID_Top1.csv")
+write.csv(Top2, file = "output/2024/speciesID_Top2.csv")
+write.csv(Top1, file = "output/2024/speciesID_Top1.csv")
 
 ## To obtain z-scores for top pop for each individual
 map_rows <- mix_est$indiv_posteriors %>% group_by(indiv) %>% top_n(1, PofZ) %>% ungroup()
@@ -61,12 +61,12 @@ map_rows_df <- as.data.frame(map_rows)
 
 # Save the data frame to a CSV file (have to exclude the column that is still a list)
 write.csv(subset(map_rows_df, select = c("mixture_collection", "indiv", "repunit", "collection", "PofZ", "log_likelihood", "z_score", "n_non_miss_loci")), 
-          file = 'output/speciesID_z-scores.csv', row.names = FALSE)
+          file = 'output/2024/speciesID_z-scores.csv', row.names = FALSE) #edit output file name 
 
 unique(rep_mix_est$repunit)
 ```
 
-all things below here are not needed. but keeping here just incase
+all things below here are not needed. but keeping here just in case
 ## Find the mix props; "#" in "top#" and "slice" should be changed to # of RGs; 
 # taking input
 topnum = readline(prompt = "what is number for top#: ");
@@ -97,6 +97,7 @@ trace_subset <- mix_est$mix_prop_traces %>%
 CIs <- trace_subset %>% 
   group_by (repunit) %>% 
   summarise(loCI = quantile(repprop, probs = 0.025), hiCI = quantile(repprop, probs = 0.975))
+
 
 # Write mix ests and CIs to table
 write.table(rep_mix_est, file = "MixEst.txt", sep = "\t")
