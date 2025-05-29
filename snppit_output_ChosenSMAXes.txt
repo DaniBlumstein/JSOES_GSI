@@ -1,0 +1,51 @@
+
+
+
+CHOSEN_SMAX:  Chosen smax is 2-2-4 which gives FNRs of:
+CHOSEN_SMAX:		Collection 0 (BonnevillexBonneville__C_Se_Se) : FNR= 0.001682
+CHOSEN_SMAX:		Collection 1 (CarsonxCarson__C_Se_Se) : FNR= 0.002005
+CHOSEN_SMAX:		Collection 2 (Chief_Joseph_su/faxChief_Joseph_su/fa__C_Se_Se) : FNR= 0.001723
+CHOSEN_SMAX:		Collection 3 (Chief_Joseph_spxChief_Joseph_sp__C_Se_Se) : FNR= 0.001960
+CHOSEN_SMAX:		Collection 4 (Cle_ElumxCle_Elum__C_Se_Se) : FNR= 0.002067
+CHOSEN_SMAX:		Collection 5 (ClearwaterxClearwater__C_Se_Se) : FNR= 0.001964
+CHOSEN_SMAX:		Collection 6 (CowlitzxCowlitz__C_Se_Se) : FNR= 0.001819
+CHOSEN_SMAX:		Collection 7 (DworshakxDworshak__C_Se_Se) : FNR= 0.001963
+CHOSEN_SMAX:		Collection 8 (Eastbank_spxEastbank_sp__C_Se_Se) : FNR= 0.001984
+CHOSEN_SMAX:		Collection 9 (EntiatxEntiat__C_Se_Se) : FNR= 0.001708
+CHOSEN_SMAX:		Collection 10 (Kalama_Falls_su/faxKalama_Falls_su/fa__C_Se_Se) : FNR= 0.001799
+CHOSEN_SMAX:		Collection 11 (Kalama_Falls_spxKalama_Falls_sp__C_Se_Se) : FNR= 0.001883
+CHOSEN_SMAX:		Collection 12 (KlickitatxKlickitat__C_Se_Se) : FNR= 0.002069
+CHOSEN_SMAX:		Collection 13 (LeavenworthxLeavenworth__C_Se_Se) : FNR= 0.001955
+CHOSEN_SMAX:		Collection 14 (Little_White_Salmon_faxLittle_White_Salmon_fa__C_Se_Se) : FNR= 0.001744
+CHOSEN_SMAX:		Collection 15 (Little_White_Salmon_spxLittle_White_Salmon_sp__C_Se_Se) : FNR= 0.001990
+CHOSEN_SMAX:		Collection 16 (LookingglassxLookingglass__C_Se_Se) : FNR= 0.001997
+CHOSEN_SMAX:		Collection 17 (Lyons_Ferry_spxLyons_Ferry_sp__C_Se_Se) : FNR= 0.002008
+CHOSEN_SMAX:		Collection 18 (Lyons_Ferry_faxLyons_Ferry_fa__C_Se_Se) : FNR= 0.001735
+CHOSEN_SMAX:		Collection 19 (McCallxMcCall__C_Se_Se) : FNR= 0.001895
+CHOSEN_SMAX:		Collection 20 (McKenziexMcKenzie__C_Se_Se) : FNR= 0.001751
+CHOSEN_SMAX:		Collection 21 (MethowxMethow__C_Se_Se) : FNR= 0.002010
+CHOSEN_SMAX:		Collection 22 (MintoxMinto__C_Se_Se) : FNR= 0.001733
+CHOSEN_SMAX:		Collection 23 (Nez_Perce_Tribal_spxNez_Perce_Tribal_sp__C_Se_Se) : FNR= 0.001973
+CHOSEN_SMAX:		Collection 24 (Nez_Perce_Tribal_faxNez_Perce_Tribal_fa__C_Se_Se) : FNR= 0.001748
+CHOSEN_SMAX:		Collection 25 (North_ToutlexNorth_Toutle__C_Se_Se) : FNR= 0.001831
+CHOSEN_SMAX:		Collection 26 (PahsimeroixPahsimeroi__C_Se_Se) : FNR= 0.001903
+CHOSEN_SMAX:		Collection 27 (ParkdalexParkdale__C_Se_Se) : FNR= 0.002081
+CHOSEN_SMAX:		Collection 28 (Powell_SatellitexPowell_Satellite__C_Se_Se) : FNR= 0.001942
+CHOSEN_SMAX:		Collection 29 (Priest_RapidsxPriest_Rapids__C_Se_Se) : FNR= 0.001726
+CHOSEN_SMAX:		Collection 30 (ProsserxProsser__C_Se_Se) : FNR= 0.001737
+CHOSEN_SMAX:		Collection 31 (Rapid_RiverxRapid_River__C_Se_Se) : FNR= 0.001920
+CHOSEN_SMAX:		Collection 32 (Ringold_SpringsxRingold_Springs__C_Se_Se) : FNR= 0.001730
+CHOSEN_SMAX:		Collection 33 (Round_ButtexRound_Butte__C_Se_Se) : FNR= 0.001913
+CHOSEN_SMAX:		Collection 34 (SawtoothxSawtooth__C_Se_Se) : FNR= 0.001899
+CHOSEN_SMAX:		Collection 35 (SF_Walla_WallaxSF_Walla_Walla__C_Se_Se) : FNR= 0.001994
+CHOSEN_SMAX:		Collection 36 (S_SantiamxS_Santiam__C_Se_Se) : FNR= 0.001748
+CHOSEN_SMAX:		Collection 37 (SpeelyaixSpeelyai__C_Se_Se) : FNR= 0.002109
+CHOSEN_SMAX:		Collection 38 (Spring_CreekxSpring_Creek__C_Se_Se) : FNR= 0.001677
+CHOSEN_SMAX:		Collection 39 (Three_Mile_DamxThree_Mile_Dam__C_Se_Se) : FNR= 0.001761
+CHOSEN_SMAX:		Collection 40 (Warm_SpringsxWarm_Springs__C_Se_Se) : FNR= 0.001888
+CHOSEN_SMAX:		Collection 41 (WashougalxWashougal__C_Se_Se) : FNR= 0.001795
+CHOSEN_SMAX:		Collection 42 (WellsxWells__C_Se_Se) : FNR= 0.001725
+CHOSEN_SMAX:		Collection 43 (WinthropxWinthrop__C_Se_Se) : FNR= 0.001990
+
+
+
